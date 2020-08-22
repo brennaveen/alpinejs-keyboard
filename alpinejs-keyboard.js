@@ -6,6 +6,77 @@ function keyboardComponent() {
         focusedInput: null,
         inputAttribute: 'data-keyboard-input',
         isOpen: false,
+        rows: [
+            {
+                keys: [
+                    { name: '1', value: '1' },
+                    { name: '2', value: '2' },
+                    { name: '3', value: '3' },
+                    { name: '4', value: '4' },
+                    { name: '5', value: '5' },
+                    { name: '6', value: '6' },
+                    { name: '7', value: '7' },
+                    { name: '8', value: '8' },
+                    { name: '9', value: '9' },
+                    { name: '0', value: '0' },
+                ],
+            },
+            {
+                keys: [
+                    { name: 'q', value: 'q' },
+                    { name: 'w', value: 'w' },
+                    { name: 'e', value: 'e' },
+                    { name: 'r', value: 'r' },
+                    { name: 't', value: 't' },
+                    { name: 'y', value: 'y' },
+                    { name: 'u', value: 'u' },
+                    { name: 'i', value: 'i' },
+                    { name: 'o', value: 'o' },
+                    { name: 'p', value: 'p' },
+                ],
+            },
+            {
+                keys: [
+                    { name: 'a', value: 'a' },
+                    { name: 's', value: 's' },
+                    { name: 'd', value: 'd' },
+                    { name: 'f', value: 'f' },
+                    { name: 'g', value: 'g' },
+                    { name: 'h', value: 'h' },
+                    { name: 'j', value: 'j' },
+                    { name: 'k', value: 'k' },
+                    { name: 'l', value: 'l' },
+                ],
+            },
+            {
+                keys: [
+                    { name: 'z', value: 'z' },
+                    { name: 'x', value: 'x' },
+                    { name: 'c', value: 'c' },
+                    { name: 'v', value: 'v' },
+                    { name: 'b', value: 'b' },
+                    { name: 'n', value: 'n' },
+                    { name: 'm', value: 'm' },
+                ],
+            },
+            {
+                keys: [
+                    {
+                        name: 'capslock',
+                        icon:
+                            '<svg viewBox="0 0 16 16" class="bi bi-capslock w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.27 1.047a1 1 0 0 1 1.46 0l6.345 6.77c.6.638.146 1.683-.73 1.683H11.5v1a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-1H1.654C.78 9.5.326 8.455.924 7.816L7.27 1.047zM14.346 8.5L8 1.731 1.654 8.5H4.5a1 1 0 0 1 1 1v1h5v-1a1 1 0 0 1 1-1h2.846zm-9.846 5a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-1zm6 0h-5v1h5v-1z"/></svg>',
+                    },
+                    { name: '.', value: '.' },
+                    { name: '@', value: '@' },
+                    { name: 'space', value: ' ' },
+                    {
+                        name: 'backspace',
+                        icon:
+                            '<svg viewBox="0 0 16 16" class="bi bi-backspace-fill w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M15.683 3a2 2 0 0 0-2-2h-7.08a2 2 0 0 0-1.519.698L.241 7.35a1 1 0 0 0 0 1.302l4.843 5.65A2 2 0 0 0 6.603 15h7.08a2 2 0 0 0 2-2V3zM5.829 5.854a.5.5 0 1 1 .707-.708l2.147 2.147 2.146-2.147a.5.5 0 1 1 .707.708L9.39 8l2.146 2.146a.5.5 0 0 1-.707.708L8.683 8.707l-2.147 2.147a.5.5 0 0 1-.707-.708L7.976 8 5.829 5.854z"/></svg>',
+                    },
+                ],
+            },
+        ],
         handleBackspaceClick() {
             if (!this.focusedInput) {
                 return;
@@ -30,9 +101,11 @@ function keyboardComponent() {
 
             this.focusedInput.focus();
 
-            let inputValue = this.focusedInput.value.concat(value);
+            let inputValue = this.focusedInput.value.concat(
+                this.capslockOn ? value.toUpperCase() : value.toLowerCase()
+            );
 
-            this.focusedInput.value = this.capslockOn ? inputValue.toUpperCase() : inputValue;
+            this.focusedInput.value = inputValue;
             this.focusedInput.dispatchEvent(
                 new Event('change', {
                     bubbles: true,
@@ -68,10 +141,10 @@ function keyboardComponent() {
         },
         insertCss() {
             if (!window.document.getElementById('keyboard-css')) {
-                let cssElement = window.document.createElement('style');
-                cssElement.id = 'keyboard-css';
-                cssElement.innerHTML = this.css;
-                window.document.head.appendChild(cssElement);
+                var internalCSS = window.document.createElement('style');
+                internalCSS.id = 'keyboard-css';
+                internalCSS.innerHTML = this.css;
+                window.document.head.appendChild(internalCSS);
             }
         },
         insertHtml() {},
