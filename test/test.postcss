@@ -1,0 +1,38 @@
+/* @import 'tailwindcss/base';
+
+@import 'tailwindcss/components';
+
+@import 'tailwindcss/utilities'; */
+
+[x-cloak] {
+    display: none;
+}
+
+.keyboard {
+    @apply fixed z-50 w-full max-w-screen-xl bg-gray-200 shadow-lg p-4 rounded-lg left-0 right-0 bottom-0 m-auto;
+}
+
+.keyboard-container {
+    @apply relative w-full flex flex-col;
+}
+
+.keyboard-row {
+    @apply relative w-full flex justify-center;
+}
+
+.keyboard-key {
+    @apply m-2 bg-gray-50 rounded text-2xl text-gray-600 shadow w-20 h-12 flex justify-center items-center cursor-pointer;
+}
+
+.keyboard-key-capslock,
+.keyboard-key-backspace {
+    @apply w-32;
+}
+
+.keyboard-key-space {
+    @apply flex-grow;
+}
+
+.keyboard-key-capslock.active {
+    @apply text-green-500;
+}
